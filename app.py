@@ -16,12 +16,16 @@ def predict(index, data, best_model, thres):
 
 @app.route('/', methods=['POST', 'GET'])
 def prediction():
-    index = request.get_json()
-    index = int(index["value"])
-    data_index = data.iloc[[index]]
-    rep, proba = predict(index, data_index, best_model, thres)
-    d = {'rep': rep, 'proba': proba}
-    return jsonify(d)
+    try:
+        index = request.get_json()
+        index = int(index["value"])
+        data_index = data.iloc[[index]]
+        rep, proba = predict(index, data_index, best_model, thres)
+        d = {'rep': rep, 'proba': proba}
+        return jsonify(d)
+    except Exception as e:
+        return jsonify({"erreur": str(e)})
+
 
 
 if __name__ == "__main__":
