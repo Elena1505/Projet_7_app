@@ -3,7 +3,6 @@ import pandas as pd
 import mlflow
 import pickle
 
-
 app = Flask(__name__)
 
 
@@ -15,6 +14,11 @@ def predict(index, data, best_model, thres):
 
 
 @app.route('/', methods=['POST', 'GET'])
+def home():
+    return "Home application"
+
+
+@app.route('/prediction', methods=['POST', 'GET'])
 def prediction():
     try:
         index = request.get_json()
@@ -25,7 +29,6 @@ def prediction():
         return jsonify(d)
     except Exception as e:
         return jsonify({"erreur": str(e)})
-
 
 
 if __name__ == "__main__":
