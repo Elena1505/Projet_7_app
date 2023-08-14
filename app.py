@@ -12,7 +12,6 @@ with open("model.pkl", "rb") as f:
     best_model = pickle.load(f)
 
 
-
 def predict(index, data, best_model, thres):
     data_id = data.loc[[index]]
     proba = float(best_model.predict_proba(data_id)[:, 1])
@@ -20,12 +19,12 @@ def predict(index, data, best_model, thres):
     return rep, round(proba, 2)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     return "Home application"
 
 
-@app.route('/prediction', methods=['POST'])
+@app.route('/prediction', methods=['GET','POST'])
 def prediction():
     try:
         index = request.get_json()
