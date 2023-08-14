@@ -22,7 +22,9 @@ def home():
 def prediction():
     try:
         index = request.get_json()
-        index = int(index["value"])
+        print(index)
+        #index = int(index["value"])
+        index = 0
         data_index = data.iloc[[index]]
         rep, proba = predict(index, data_index, best_model, thres)
         d = {'rep': rep, 'proba': proba}
