@@ -5,11 +5,12 @@ import pickle
 
 app = Flask(__name__)
 data = pd.read_csv("data.csv")
-model_path = f"models:/LGBMClassifier/version-4"
-print(model_path)
-best_model = mlflow.sklearn.load_model(model_uri=model_path)
 with open("best_threshold.pickle", "rb") as f:
     thres = pickle.load(f)
+
+with open("model.pkl", "rb") as f:
+    best_model = pickle.load(f)
+
 
 
 def predict(index, data, best_model, thres):
