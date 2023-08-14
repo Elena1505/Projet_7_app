@@ -19,12 +19,12 @@ def predict(index, data, best_model, thres):
     return rep, round(proba, 2)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     return "Home application"
 
 
-@app.route('/prediction', methods=['POST'])
+@app.route('/prediction', methods=['GET', 'POST'])
 def prediction():
     try:
         index = request.get_json()
