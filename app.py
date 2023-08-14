@@ -4,7 +4,7 @@ import mlflow
 import pickle
 
 app = Flask(__name__)
-data = None
+data = pd.read_csv("data.csv")
 
 
 def predict(index, data, best_model, thres):
@@ -21,7 +21,6 @@ def home():
 
 @app.route('/prediction', methods=['POST'])
 def prediction():
-    global data 
     try:
         index = request.get_json()
         print(index)
@@ -36,7 +35,6 @@ def prediction():
 
 
 if __name__ == "__main__":
-    data = pd.read_csv("data.csv")
     model_name = "LGBMClassifier"
     model_version = 4
     best_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_version}")
