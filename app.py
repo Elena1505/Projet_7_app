@@ -4,6 +4,7 @@ import mlflow
 import pickle
 
 app = Flask(__name__)
+data = None
 
 
 def predict(index, data, best_model, thres):
@@ -13,13 +14,14 @@ def predict(index, data, best_model, thres):
     return rep, round(proba, 2)
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['GET'])
 def home():
     return "Home application"
 
 
-@app.route('/prediction', methods=['POST', 'GET'])
+@app.route('/prediction', methods=['POST'])
 def prediction():
+    global data 
     try:
         index = request.get_json()
         print(index)
