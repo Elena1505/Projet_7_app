@@ -54,7 +54,6 @@ def serve_shap_plot():
     index = request.get_json()
     elt_index = int(index["value"])
     X = data.drop(['SK_ID_CURR'], axis=1)
-    shap.initjs()
     image = shap.force_plot(explainer.expected_value[1], shap_values[1][elt_index], X.iloc[elt_index, :])
     shap.save_html("image.html", image)
 
