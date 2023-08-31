@@ -53,9 +53,6 @@ def prediction():
 def serve_shap_plot():
     index = request.get_json()
     elt_index = int(index["value"])
-    #elt_index = data.iloc[[index]]
-    #client_id = data_shap['client_id']
-    #elt_index = data.index[data['SK_ID_CURR']==client_id]
     X = data.drop(['SK_ID_CURR'], axis=1)
     shap.initjs()
     image = shap.force_plot(explainer.expected_value[1], shap_values[1][elt_index], X.iloc[elt_index, :])
@@ -64,7 +61,8 @@ def serve_shap_plot():
     with open('image.html', 'r', encoding='utf-8') as file:
         html_content = file.read()
 
-    return jsonify({"key":html_content})
+    return jsonify({"key": html_content})
+
 
 if __name__ == "__main__":
     app.run(debug=True, port="5000", host="0.0.0.0")
