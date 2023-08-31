@@ -1,15 +1,16 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-import mlflow
 import pickle
 
 app = Flask(__name__)
 data = pd.read_csv("data.csv")
+
 with open("best_threshold.pickle", "rb") as f:
     thres = pickle.load(f)
 
 with open("model.pkl", "rb") as f:
     best_model = pickle.load(f)
+
 
 
 def predict(index, data, best_model, thres):
@@ -24,7 +25,7 @@ def home():
     return "Home application"
 
 
-@app.route('/prediction', methods=['GET', 'POST'])
+@app.route('/prediction', methods=['POST', 'GET'])
 def prediction():
     try:
         index = request.get_json()
@@ -39,4 +40,4 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port="5000", host="0.0.0.0")
